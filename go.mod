@@ -1,4 +1,4 @@
-module cmd/main
+module Go-Gin-LoadBalancer
 
 go 1.24.4
 

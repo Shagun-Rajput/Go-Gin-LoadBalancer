@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-
+	"Go-Gin-LoadBalancer/internal/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,7 +10,7 @@ func main() {
 	r := gin.Default()
 
 	// Initialize routes from internal/router
-	//router.SetupRoutes(r)
+	router.SetupRoutes(r)
 
 	// Start server
 	if err := r.Run(); err != nil {
