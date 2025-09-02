@@ -1,15 +1,21 @@
 package main
 
 import (
-	"log"
+	"Go-Gin-LoadBalancer/internal/config"
 	"Go-Gin-LoadBalancer/internal/router"
-	"github.com/gin-gonic/gin"
+	"log"
 	"runtime"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+
+	// Load server config from environment
+	serverConfig := config.GetServerConfigFromEnv()
+	log.Printf("Loaded Config: AppPort=%s, ServerList=%v, LoadBalancingStrategy=%s", serverConfig.AppPort, serverConfig.ServerList, serverConfig.LoadBalancingStrategy)
 
 	// Initialize routes from internal/router
 	router.SetupRoutes(r)
@@ -19,7 +25,7 @@ func main() {
 		for {
 			var m runtime.MemStats
 			runtime.ReadMemStats(&m)
-			log.Printf("Memory Usage: Alloc = %v MiB, TotalAlloc = %v MiB, Sys = %v MiB, NumGC = %v", m.Alloc/1024/1024, m.TotalAlloc/1024/1024, m.Sys/1024/1024, m.NumGC)
+			log.Printf("***** Memory Usage: Alloc = %v MiB, TotalAlloc = %v MiB, Sys = %v MiB, NumGC = %v", m.Alloc/1024/1024, m.TotalAlloc/1024/1024, m.Sys/1024/1024, m.NumGC)
 			time.Sleep(time.Minute)
 		}
 	}()
@@ -28,5 +34,5 @@ func main() {
 	if err := r.Run(); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
-	log.Println("Load Balancer started successfully")
+	log.Println("***** Load Balancer started successfully *****")
 }
