@@ -33,7 +33,7 @@ func main() {
 	}()
 
 	// Start server
-	if err := r.Run(); err != nil {
+	if err := r.Run(":" + serverConfig.AppPort); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
 	log.Println("***** Load Balancer started successfully *****")

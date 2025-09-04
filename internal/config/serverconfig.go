@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"os"
+	"strings"
 )
 
 type ServerConfig struct {
@@ -29,19 +30,11 @@ func GetServerConfigFromEnv() ServerConfig {
 
 func splitAndTrim(s, sep string) []string {
 	var result []string
-	for _, part := range split(s, sep) {
-		trimmed := trimSpace(part)
+	for _, part := range strings.Split(s, sep) {
+		trimmed := strings.TrimSpace(part)
 		if trimmed != "" {
 			result = append(result, trimmed)
 		}
 	}
 	return result
-}
-
-func split(s, sep string) []string {
-	return []string{s}
-}
-
-func trimSpace(s string) string {
-	return s
 }

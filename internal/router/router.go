@@ -14,6 +14,6 @@ func SetupRoutes(r *gin.Engine, cfg config.ServerConfig) {
 		log.Printf("***** Request received: %s %s", c.Request.Method, c.Request.URL.Path)
 		handler.HandleRequest(cfg)(c)
 		elapsed := time.Since(start).Seconds() * 1000
-		log.Printf("Response sent: %s %s | Duration: %.6f ms", c.Request.Method, c.Request.URL.Path, elapsed)
+		log.Printf("Response sent: %s %s | Duration: %.3f ms", c.Request.Method, c.Request.URL.Path, elapsed)
 	})
 }

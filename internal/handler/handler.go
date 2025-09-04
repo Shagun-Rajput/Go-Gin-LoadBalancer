@@ -9,6 +9,6 @@ import (
 
 func HandleRequest(cfg config.ServerConfig) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusOK, service.ProxyRequest(cfg))
+		c.JSON(http.StatusOK, service.SelectServer(cfg))
 	}
 }
