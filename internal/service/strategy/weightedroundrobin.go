@@ -1,6 +1,5 @@
 package strategy
 
-
 func WeightedRoundRobin(servers []string) string {
 	if len(servers) == 0 {
 		return "No available servers"
