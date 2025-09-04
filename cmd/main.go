@@ -20,7 +20,7 @@ func main() {
 	log.Printf("Loaded Config: AppPort=%s, ServerList=%v, LoadBalancingStrategy=%s", serverConfig.AppPort, serverConfig.ServerList, serverConfig.LoadBalancingStrategy)
 
 	// Initialize routes from internal/router
-	router.SetupRoutes(r)
+	router.SetupRoutes(r, serverConfig)
 
 	// Start goroutine to print memory usage every minute
 	go func() {
