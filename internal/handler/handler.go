@@ -23,9 +23,9 @@ func HandleRequest(cfg config.ServerConfig) gin.HandlerFunc {
 			// Decrement connection count when request is done
 			defer strategy.DecConnection(selectedServer)
 		}
-		// Check if live servers are provided
+		// Logic : if live servers are provided ------------------------------------------------
 		if strings.ToLower(c.Query(constants.AreServersLive)) == "true" {
-			log.Println("****** Live servers are provided ******")
+			log.Println("****** Live servers are provided, Now hitting actual backend server ******")
 			resp, err := client.ProxyToServer(selectedServer, c.Request)
 			if err != nil {
 				c.JSON(http.StatusBadGateway, gin.H{"error": "Failed to reach backend server"})
