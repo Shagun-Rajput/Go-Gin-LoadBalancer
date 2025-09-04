@@ -9,6 +9,22 @@ var (
 	connMutex sync.Mutex
 )
 
+// Increment connection count for a server
+func IncConnection(server string) {
+	connMutex.Lock()
+	defer connMutex.Unlock()
+	connCount[server]++
+}
+
+// Decrement connection count for a server
+func DecConnection(server string) {
+	connMutex.Lock()
+	defer connMutex.Unlock()
+	if connCount[server] > 0 {
+		connCount[server]--
+	}
+}
+
 func LeastConnections(servers []string) string {
 	if len(servers) == 0 {
 		return "No available servers"
@@ -33,8 +49,6 @@ func LeastConnections(servers []string) string {
 		}
 	}
 
-	// Simulate incrementing connection count
-	connCount[minServer]++
-
+	// Do NOT increment here; increment should be done when request is assigned
 	return minServer
 }
